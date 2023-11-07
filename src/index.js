@@ -1,6 +1,8 @@
 fetch("http://localhost:3000/ramens")
 .then(r => r.json())
 .then(ramens => {
+    const firstRamen =  ramens[0]
+   ramenDetails(firstRamen)
 
     createImages(ramens)
 
@@ -18,10 +20,14 @@ function createImages(array) {
         img.addEventListener("click", (e) => {
             e.preventDefault()
             ramenDetails(ramen)
-
+            
         })
-
+        updateRating()
+      
+     
     })
+
+    deleteRamen()
 }
 
 //this function articulates the info from each ramen
@@ -59,7 +65,40 @@ form.addEventListener("submit", (e) => {
 
 })
 
+function updateRating(){
+   const form = document.querySelector('#edit-ramen')
+    form.addEventListener('submit', (e) =>{
+        e.preventDefault()
+        const rating = e.target.rating.value
+        const comment = e.target[`new-comment`].value
+        document.querySelector("#rating-display").textContent = rating
+        document.querySelector("#comment-display").textContent = comment
+        
+    })
 
+}
+function deleteRamen(){
 
+    const deleteButton = document.querySelector('#delete_button')
+    deleteButton.addEventListener('click', (e)=>{
+        e.preventDefault()
+        
+    const name = document.querySelector(".name")
+    const restaurant = document.querySelector(".restaurant")
+    const image = document.querySelector(".detail-image")
+    const rating = document.querySelector("#rating-display")
+    const comment = document.querySelector("#comment-display")
+
+    name.remove()
+    restaurant.remove()
+    image.remove()
+    rating.remove()
+    comment.remove()
+
+    deleteButton.remove()
+
+})
+
+}
 
 
